@@ -29,8 +29,8 @@ public with sharing class SOQL {
      * Update the corresponding test class and testGetAllLeads method to cover this method
      */
     public static List<Lead> getAllLeads () {
-        List<Lead> allLeads = [SELECT Id, LastName, Company, Phone, Email FROM Lead];
-        
+        List<Lead> allLeads = [SELECT Id, LastName, Company, Phone, Email
+                                    FROM Lead];
         return allLeads;
     }
 
@@ -41,8 +41,10 @@ public with sharing class SOQL {
      * @return A list of Contact records.
      * Update the corresponding test class and testGetContactsByFirstName method to cover this method
      */
-    public static List<Contact> getContactsByFirstName (String FirstName) {
-        List<Contact> allContactsByFirstName = [SELECT Id, FirstName, LastName, Name FROM Contact WHERE FirstName = :FirstName];
+    public static List<Contact> getContactsByFirstName (String firstname) {
+        List<Contact> allContactsByFirstName = [SELECT Id, FirstName, LastName, Name
+                                                    FROM Contact
+                                                    WHERE FirstName = :firstname];
         return allContactsByFirstName;
     }
 
@@ -53,9 +55,11 @@ public with sharing class SOQL {
      * @return A list of Contact Ids.
      * Update the corresponding test class and testGetContactIdsByLastName method to cover this method
      */
-    public static List<Id> getContactIdsByLastName (List<String> LastNames) {
+    public static List<Id> getContactIdsByLastName (List<String> lastnames) {
         List<Id> allContactIdsByLastName = new List<Id>();
-        for ( Contact con : [SELECT Id, FirstName, LastName FROM Contact WHERE LastName IN :LastNames]){
+        for ( Contact con : [SELECT Id, FirstName, LastName
+                                FROM Contact
+                                WHERE LastName IN :lastnames]){
             allContactIdsByLastName.add(con.Id);
         }
         return allContactIdsByLastName;
@@ -70,9 +74,12 @@ public with sharing class SOQL {
      * @return A list of Opportunities with important opportunities fields
      * Update the corresponding test class and testGetClosedWonOpportunityCountByAccount method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
-    //  The body of the method
-    //}
+    public static List<Opportunity> getClosedWonOpportunityCountByAccount (String accountid) {
+        List<Opportunity> closedWonOpportunitiesByAccount = [SELECT Id, AccountId, Name, StageName, CloseDate, Amount
+                                                                FROM Opportunity
+                                                                WHERE StageName = 'Closed Won' AND AccountId = :accountid];
+        return closedWonOpportunitiesByAccount;
+    }
 
     /**
      * Question 5
