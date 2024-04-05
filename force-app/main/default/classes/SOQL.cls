@@ -382,7 +382,7 @@ public with sharing class SOQL {
                                 FROM Lead
                                 WHERE Id IN :leadIds];
         // Create a set of email domains from the Leads
-        Set<String> emailDomains = new Set<String>();
+        Set<String> websites = new Set<String>();
         // Loop through each Lead
         for (Lead l : leads) {
             // Get the email from the Lead
@@ -390,13 +390,13 @@ public with sharing class SOQL {
             // Check if the email is not null
             if (domain != null) {
                 // Add the email domain to the set
-                emailDomains.add('www.' + domain);
+                websites.add('www.' + domain);
             }
         }
         // Query the Accounts
         List<Account> accounts = [SELECT Id, Name, Website
                                     FROM Account
-                                    WHERE Website IN :emailDomains];
+                                    WHERE Website IN :websites];
         return accounts;
     }
 
