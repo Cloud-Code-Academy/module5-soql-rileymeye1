@@ -339,7 +339,12 @@ public with sharing class SOQL {
      * @return An Account record with related Opportunities.
      */
     public static Account getOpportunityAndAccountNamesForLineItem(Id accountId) {
-        return null; // Replace null with the variable you used to store the result
+        List<Account> accountWithOpps = [SELECT Name,
+                                                (SELECT Id, Name FROM Opportunities)
+                                            FROM Account
+                                            WHERE Id = :accountId];
+        Account foundAccount = accountWithOpps[0];
+        return foundAccount; // Replace null with the variable you used to store the result
     }
 
     /**
