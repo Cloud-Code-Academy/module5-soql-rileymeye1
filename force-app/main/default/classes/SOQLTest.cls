@@ -744,10 +744,10 @@ public with sharing class SOQLTest {
         SOQL.setPrimaryContact();
 
         // Query for the updated Opportunity
-        //Opportunity updatedOpp = [SELECT Id, Primary_Contact__c FROM Opportunity WHERE Id = :testOpp1.Id];
+        Opportunity updatedOpp = [SELECT Id, Primary_Contact__c FROM Opportunity WHERE Id = :testOpp1.Id];
 
         // Assert that the Primary Contact was set correctly
-        //System.assertEquals(testContact2.Id, updatedOpp.Primary_Contact__c, 'Primary Contact was not set correctly.');
+        System.assertEquals(testContact2.Id, updatedOpp.Primary_Contact__c, 'Primary Contact was not set correctly.');
     }
 
 
