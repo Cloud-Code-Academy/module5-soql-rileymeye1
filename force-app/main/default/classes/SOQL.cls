@@ -245,9 +245,17 @@ public with sharing class SOQL {
      * @return A list of Contacts
      */
     public static List<Contact> getBirthdateContacts() {
-        return null; // Replace null with the variable you used to store the result
+        Integer listLimit = 3;
+        Date todaysDate = Date.today();
+         // Query the Contacts ordered by Birthdate and limit the results to 3
+        List<Contact> birthdateContacts = [SELECT Id, Name, Birthdate
+                                            FROM Contact
+                                            WHERE Birthdate < :todaysDate
+                                            ORDER BY Birthdate DESC
+                                            LIMIT :listLimit];
+        return birthdateContacts; // Replace null with the variable you used to store the result
     }
-    
+
     /**
      * Question 16
      * Retrieves the Cases in the Open Status, ordered by CreatedDate, and limited to 10 records with an offset of 5.
