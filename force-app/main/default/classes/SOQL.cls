@@ -228,7 +228,15 @@ public with sharing class SOQL {
      * @return A list of Opportunities with an Amount greater than 100,000, ordered by CloseDate, and limited to 5 records.
      */
     public static List<Opportunity> getHighValueOpportunities() {
-        return null; // Replace null with the variable you used to store the result
+        Decimal amountFilter = 100000;
+        Integer listLimit = 5;
+        // Query the High Value Opportunities
+        List<Opportunity> highValueOpps = [SELECT Id, Name, AccountId, CloseDate, StageName, Amount
+                                            FROM Opportunity
+                                            WHERE Amount > :amountFilter
+                                            ORDER BY CloseDate ASC
+                                            LIMIT :listLimit];
+        return highValueOpps; // Replace null with the variable you used to store the result
     }
     
     /**
